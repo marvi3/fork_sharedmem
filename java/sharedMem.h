@@ -14,7 +14,13 @@ extern "C" {
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_sharedMem_add
-  (JNIEnv *, jobject);
+  (JNIEnv* env, jobject, jint pos, jstring data);
+
+JNIEXPORT string JNICALL Java_sharedMem_get
+  (JNIEnv* env, jobject, jint pos);
+
+JNIEXPORT bool JNICALL Java_sharedMem_create
+  (JNIEnv* env, jobject, jint numChar, jint arrayLength);
 
 #ifdef __cplusplus
 }

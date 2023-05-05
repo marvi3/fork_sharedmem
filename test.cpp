@@ -54,7 +54,7 @@ void mmap_test() {
     }
 }
 
-void write(shmget_use shared_mem, int pos) {
+void testWrite(shmget_use shared_mem, int pos) {
     string input;
     cout << "What do you want to write in the shared memory?" << endl;
     cin >> input;
@@ -71,7 +71,7 @@ void test() {
       if(input == "exit") {
           break;
       } else if (input == "write") {
-          write(shared_mem, 0);
+          testWrite(shared_mem, 0);
       }
       
     }

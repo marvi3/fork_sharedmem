@@ -87,7 +87,9 @@ string shmget_use::get(int index) {
     
 }
 
-void write(shmget_use shared_mem, int pos) {
+static shmget_use memory;
+
+void testWrite(shmget_use shared_mem, int pos) {
     string input;
     cout << "What do you want to write in the shared memory?" << endl;
     cin >> input;
@@ -104,7 +106,7 @@ void test() {
       if(input == "exit") {
           break;
       } else if (input == "write") {
-          write(shared_mem, 0);
+          testWrite(shared_mem, 0);
       }
       
     }
@@ -112,8 +114,30 @@ void test() {
 }
 
 JNIEXPORT void JNICALL Java_sharedMem_add
-  (JNIEnv* env, jobject thisObject) {
-    cout << "Hello from C++ !!" << endl;
-    // shmget_test();
-    test();
+  (JNIEnv* env, jobject thisObject, jint pos, jstring data) {
+    try {
+        memory.add(pos, data);
+    } catch {
+        
+    }
+}
+
+JNIEXPORT jstring JNICALL Java_sharedMem_get
+  (JNIEnv* env, jobject thisObject, jint pos) {
+    try {
+        jstring ret = memory.get(pos);
+        return ret;
+    } catch {
+        return NULL;
+    }
+}
+
+JNIEXPORT jboolean JNICALL Java_sharedMem_create
+  (JNIEnv* env, jobject, jint numChar, jint arrayLength, jstring fileName) {
+    try {
+        memory = new shmget_use(numChar, arrayLength, fileName);
+        return true;
+    } catch {
+        return false;
+    }
 }

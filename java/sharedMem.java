@@ -5,9 +5,9 @@ public class sharedMem {
         System.loadLibrary("native");
     }
 
-    public static void main(String[] args) {
-        new sharedMem().add();
-    }
-
-    private native void add();
+    public native void add(int pos, String data);
+    
+    public native String get(int pos);
+    
+    public native Boolean create(int numChar, int arrayLength);
 }
