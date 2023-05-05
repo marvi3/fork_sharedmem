@@ -6,10 +6,11 @@ SOURCES=  \
 test.cpp \
 fork.cpp \
 mmap_use.cpp \
+shmget_use.cpp \
 
 OBJECTS=$(SOURCES:.cpp=.o)
 
-all: test fork mmap_use.cpp
+all: test fork mmap_use.cpp shmget_use.cpp
 
 test: test.o $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o build/$@

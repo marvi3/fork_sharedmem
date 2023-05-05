@@ -28,7 +28,8 @@ void shmget_test() {
         shared_mem.add(0, "a test");
         cout << "I am a parent and this is " << shared_mem.get(0) << endl;
         
-        wait(NULL);
+        // wait(NULL);
+        sleep(2);
         cout << "I am a parent and this is " << shared_mem.get(0) << endl;
     }
 }
@@ -53,10 +54,37 @@ void mmap_test() {
     }
 }
 
+void write(shmget_use shared_mem, int pos) {
+    string input;
+    cout << "What do you want to write in the shared memory?" << endl;
+    cin >> input;
+    shared_mem.add(pos, input);
+}
+
+void test() {
+    shmget_use shared_mem(10, 1, "shmem");
+    sleep(1);
+    while (true) {
+      cout << "In C++ I read \""<< shared_mem.get(0) << "\"." << endl;
+      string input;
+      cin >> input;
+      if(input == "exit") {
+          break;
+      } else if (input == "write") {
+          write(shared_mem, 0);
+      }
+      
+    }
+    // shared_mem.add(0, "crazy");
+}
+
 int main(int argc, char**argv) {
     if((char) argc == 1) {
         shmget_test();
-    } else {
+    } else if((char) argc == 2) {
+        test();
+    }
+    else {
         mmap_test();
     }
 }

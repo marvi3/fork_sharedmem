@@ -1,2 +1,2 @@
 make clean all
-./build/test
+./build/test name
