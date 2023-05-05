@@ -6,7 +6,7 @@ public class sharedMem {
     }
 
     public static void main(String[] args) {
-        new sharedem().add();
+        new sharedMem().add();
     }
 
     private native void add();
